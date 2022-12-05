@@ -9,7 +9,40 @@
 <body>
     {% block content %}
     <div class="container">
-        
+        <div class="row">
+            <div class="col-md-8">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product</th>
+                                <th>Barcode</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td></td><td></td><td></td>
+                            </tr>
+                        </tbody>
+                
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <form action="" method="post" class="card card-body">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4 text-center">Upload blog</legend>
+                        {{form}}
+                    </fieldset>
+                    <div class="form-group mt-2">
+                        <button type="submit" class="btn btn-outline-dark"><i class="bi-plus-circle-fill"></i> New product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     {% endblock %}
 </body>
