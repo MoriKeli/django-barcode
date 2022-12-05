@@ -1,4 +1,10 @@
 from django.db import models
+from django.core.files import File
+from io import BytesIO
+
+# importing barcode module
+from barcode.writer import ImageWriter
+import barcode
 
 
 class Products(models.Model):
@@ -16,3 +22,13 @@ class Products(models.Model):
     
     def __str__(self):
         return f'{self.name}'
+
+
+    def save(self, *args, **kwargs):
+        EAN = barcode.get_barcode_class('ean13')
+        ean = EAN(f'', writer=ImageWriter())
+        buffer = BytesIO()
+        ean.write(buffer)
+        self.barcode.save('barcode.png', File(buffer), save=False)
+        return super(Products, self).save(*args, **kwargs)
+        
