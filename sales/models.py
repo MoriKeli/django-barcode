@@ -26,9 +26,8 @@ class Products(models.Model):
 
     def save(self, *args, **kwargs):
         EAN = barcode.get_barcode_class('ean13')
-        ean = EAN(f'', writer=ImageWriter())
+        ean = EAN(f'{self.country_id}{self.manufacturer_id}{self.product_id}', writer=ImageWriter())
         buffer = BytesIO()
         ean.write(buffer)
         self.barcode.save('barcode.png', File(buffer), save=False)
         return super(Products, self).save(*args, **kwargs)
-        
